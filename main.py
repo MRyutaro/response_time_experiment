@@ -1,7 +1,7 @@
 """
 人間情報工学課題用プログラム
 プログラム作成者：松本琉大桜
-e-mail:u021626a@ecs.osaka-u.ac.jp
+e-mail:u021626a[at]ecs.osaka-u.ac.jp
 
 以下のフローでaからdについて行う
 1. 画面を描画する
@@ -80,6 +80,7 @@ class TimerApp:
         self.experiment_type = "d"
         # 実験の回数を指定する
         self.experiment_count_max = 10
+        print(f"実験の種類：{self.experiment_type}")
         ###############################
         self.create_widgets()
 
@@ -159,7 +160,7 @@ class TimerApp:
             # C(c), I(l), O(o), P(p), S(s), U(u), V(v), W(w), X(x), Z(z), 0(o), 1(l)を消した
             # かっこ内は区別しづらいと判断した文字
             b_letters_config = [
-                ["a", 290], ["b", 290], ["c", 290], ["d", 290], ["e", 290], ["f", 290], ["g", 290], ["h", 290], ["i", 290], ["j", 290], ["k", 290], ["l", 290], ["m", 290], ["n", 290], ["o", 290], ["p", 290], ["q", 290], ["r", 290], ["s", 290], ["t", 290], ["u", 290], ["v", 290], ["w", 290], ["x", 290], ["y", 290], ["z", 290], ["A", 210], ["B", 210], ["D", 210], ["E", 210], ["F", 210], ["G", 210], ["H", 210], ["J", 210], ["K", 210], ["L", 210], ["M", 210], ["N", 210], ["Q", 210], ["R", 210], ["T", 210], ["Y", 210], ["2", 210], ["3", 210], ["4", 210], ["5", 210], ["6", 210], ["7", 210], ["8", 210], ["9", 210], ["!", 210], ["#", 210], ["$", 210], ["%", 210], ["&", 210], ["'", 290], ["(", 210], [")", 210], ["-", 290], ["=", 290],
+                ["a", 290], ["b", 290], ["c", 290], ["d", 290], ["e", 290], ["f", 290], ["g", 290], ["h", 290], ["i", 290], ["j", 290], ["k", 290], ["l", 290], ["m", 290], ["n", 290], ["o", 290], ["p", 290], ["q", 290], ["r", 290], ["s", 290], ["t", 290], ["u", 290], ["v", 290], ["w", 290], ["x", 290], ["y", 290], ["z", 290], ["A", 210], ["B", 210], ["D", 210], ["E", 210], ["F", 210], ["G", 210], ["H", 210], ["J", 210], ["K", 210], ["L", 210], ["M", 210], ["N", 210], ["Q", 210], ["R", 210], ["T", 210], ["Y", 210], ["2", 210], ["3", 210], ["4", 210], ["5", 210], ["6", 210], ["7", 210], ["8", 210], ["9", 210], ["!", 210], ["#", 210], ["$", 210], ["%", 210], ["&", 210], ["(", 210], [")", 210], ["-", 290], ["=", 290],
             ]
             self.answer_letters_config = [random.choice(b_letters_config)]
             instruction_letter = self.answer_letters_config[0][0]
@@ -233,12 +234,12 @@ class TimerApp:
                 },
                 {
                     "group": "symbol",
-                    "letters": [["!", 210], ["#", 210], ["$", 210], ["%", 210], ["&", 210], ["'", 290], ["(", 210], [")", 210], ["-", 290], ["=", 290]]
+                    "letters": [["!", 210], ["#", 210], ["$", 210], ["%", 210], ["&", 210], ["(", 210], [")", 210], ["-", 290], ["=", 290]]
                 }
             ]
             random_letter_configs = random.choice(d_letters_configs)
             self.answer_letters_config = random_letter_configs["letters"]
-            instruction_letter = random_letter_configs["group"]
+            instruction_letter = random.choice(self.answer_letters_config)[0]
 
             # YesとNoが50%ずつ出現するようにする
             if random.randint(0, 1) == 0:
@@ -253,7 +254,7 @@ class TimerApp:
                 )
                 self.displayed_letter_config = random.choice(displayed_letters_config)
             self.label.config(
-                text=f"Press y if the displayed letter reading is the same group as {instruction_letter}; if not, press u. \n(If you are ready, press Space)"
+                text=f"Press y if the displayed letter reading is the same group as {instruction_letter};\nif not, press u. \n(If you are ready, press Space)"
             )
 
     def experiment(self):
