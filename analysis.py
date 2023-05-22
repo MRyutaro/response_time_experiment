@@ -42,7 +42,6 @@ def yes_and_no_probabilities(data_path):
 
 
 def read_response_time(data_path):
-    experiment_type = ""
     # DataFrameを作成
     response_time = pd.Series()
 
@@ -51,13 +50,17 @@ def read_response_time(data_path):
     if not files:
         raise Exception("No files in the directory.")
 
+    # Experiment Typeを読み込み
+    df = pd.read_csv(os.path.join(data_path, files[0]), header=0)
+    experiment_type = df["Experiment Type"][0]
+
     for file in files:
         # ファイル読み込み
         df = pd.read_csv(os.path.join(data_path, file), header=0)
-        # Experiment Typeを読み込み
-        experiment_type = df["Experiment Type"][0]
+        # Is CorrectがTrueのもののみ抽出
+        correct_df = df[df["Is Correct"]]
         # Time Differenceを追加
-        response_time = response_time.append(df["Time Difference (seconds)"])
+        response_time = response_time.append(correct_df["Time Difference (seconds)"])
 
     # 番号を振り直す
     response_time.reset_index(drop=True, inplace=True)
@@ -96,7 +99,7 @@ def draw_histograms(experiment_type, response_time):
     # グラフの設定
     plt.xlim(min(response_time), max_time_difference)
 
-    plt.title(f'Experiment Type {experiment_type}')
+    plt.title(f'Experiment Type {experiment_type} (data size = {len(response_time)})')
     plt.xlabel('Response Time [s]')
     plt.ylabel('Probability Density')
     plt.legend()
