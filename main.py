@@ -77,7 +77,7 @@ class TimerApp:
         # 本番かテストか
         self.is_test = True
         # 実験の種類を選択する
-        self.experiment_type = "d"
+        self.experiment_type = "a"
         # 実験の回数を指定する
         self.experiment_count_max = 10
         print(f"実験の種類：{self.experiment_type}")
